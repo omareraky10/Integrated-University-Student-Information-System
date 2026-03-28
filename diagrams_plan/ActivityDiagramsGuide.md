@@ -2,56 +2,49 @@
 
 ## Visual Paradigm Drawing Instructions
 1. **Selecting the Tool**: Under **Diagram Navigator**, right-click **Activity Diagram** and select **New**. Create 4 distinct diagrams.
-2. **Start and End Nodes**: Always begin by placing an **Initial Node** (solid black circle) at the top, and an **Activity Final Node** (target circle) at the bottom.
-3. **Drawing Actions**: Use the **Action** tool (rounded rectangles) to represent the steps.
-4. **Control Flows**: Use the **Control Flow** tool (solid arrows) to connect the nodes in sequence.
-5. **Decision Nodes**: Drop a **Decision Node** (diamond shape) wherever there is a question (e.g., "Conflict Detected?"). From this diamond, draw two Control Flows out and label them `[Yes]` and `[No]` using the Guard Condition property.
-6. **Merge Nodes**: If the `[Yes]` and `[No]` paths eventually meet back up, use a **Merge Node** (also a diamond) to bring them together cleanly before moving to the next Action.
-
-Draw **4 distinct Activity Diagrams** representing logical flowcharts for the system's core algorithmic decisions. Provide one for each member domain.
+2. **Start and End Nodes**: Place an **Initial Node** at the top, and an **Activity Final Node** at the bottom.
+3. **Drawing Actions**: Use the **Action** tool (rounded rectangles) to represent steps.
+4. **Control Flows**: Use the **Control Flow** tool (solid arrows) to connect nodes.
+5. **Decision/Merge Nodes**: Drop **Decision Nodes** (diamonds) for splits and **Merge Nodes** for reconnections.
 
 ### 1. Recommendation Engine Algorithm (Hamdo Alhasan)
-* **Start Node (Solid Black Circle)**
-* **Action:** Check Passed Credits.
-* **Decision Node (Diamond):** Missing Compulsory Courses?
-  * `[Yes]` --> **Action:** Add Compulsory Courses to pool.
-  * `[No]` --> **Action:** Analyze specialized electives from past.
-* **Action (Merge point):** Filter matches against Timetable.
-* **Decision Node (Diamond):** Timetable Conflict Detected?
-  * `[Yes]` --> **Action:** Drop lowest priority elective and search alternative.
-  * `[No]` --> **Action:** Render Final Schedule Block.
-* **End Node (Target Circle)**
-
-### 2. Advising Workflow (Omar Mohamed)
-* **Start Node**
-* **Action:** Open Student Registration Request.
-* **Decision Node:** Are all prerequisites perfectly met?
-  * `[No]` --> **Action:** Reject Request and append reason string. --> **End Node**
-  * `[Yes]` --> Proceed downwards.
-* **Decision Node:** Is the student asking for more than max limit credits (Overload)?
-  * `[Yes]` --> **Action:** Halt process and prompt for 'Official Overload Petition Workflow'.
-  * `[No]` --> **Action:** Formally Approve Request.
+* **Start Node** -> **Action:** Check Passed Courses/Transcript.
+* **Action:** Identify Missing Compulsory Courses.
+* **Action:** Select Candidate Electives.
+* **Action:** Validate Prerequisites.
+* **Decision Node:** Timetable Conflict Detected?
+  * `[Yes]` --> **Action:** Choose alternative elective --> **(Loops back to Validate Prerequisites)**.
+  * `[No]` --> **Action:** Output Final Schedule.
 * **End Node**
 
-### 3. Grading Curve Algorithm (Hesham Alfadhl)
-* **Start Node**
-* **Action:** Read raw MT & Final scores from memory.
-* **Decision Node:** Are ALL enrolled students graded?
-  * `[No]` --> **Action:** Loop back to next missing student row.
+### 2. Advising Workflow (Omar Mohamed)
+* **Start Node** -> **Action:** Open Student Registration Request.
+* **Decision Node:** Are all prerequisites met?
+  * `[No]` --> **Action:** Reject Request and record reason. --> **End Node**
+  * `[Yes]` --> Proceed downwards.
+* **Decision Node:** Is the workload an Overload?
+  * `[Yes]` --> **Decision Node:** Is Overload Petition Approved?
+    * `[No]` -> Reject request.
+    * `[Yes]` -> Approve request.
+  * `[No]` --> **Action:** Approve request.
+* **End Node**
+
+### 3. Standard Grade-Entry Workflow (Hesham Alfadhl)
+* **Start Node** -> **Action:** Open Grade Sheet.
+* **Action:** Enter Numerical Scores.
+* **Action:** Validate Scores (0-100).
+* **Decision Node:** Are all inputs valid?
+  * `[No]` --> Return Error and Loop Back.
   * `[Yes]` --> Proceed.
-* **Action:** Calculate standard deviation & bell curve boundaries.
-* **Action:** Assign categorical Letter Grades (AA, BA, BB...).
-* **Action:** Permanently Publish logic block.
+* **Action:** Convert Scores to Letter Grades.
+* **Action:** Publish Grades.
+* **Action:** Update Transcripts in database.
 * **End Node**
 
 ### 4. System Calendar Lifecycle (Mohamed Hafedh)
-* **Start Node**
-* **Action:** Master Clock reads the active Calendar range.
-* **Decision Node:** Is the current date within "Registration Week"?
-  * `[No]` --> **Action:** Output "Module Locked". --> **End Node**
+* **Start Node** -> **Action:** Monitor current date/time.
+* **Decision Node:** Has the academic deadline expired?
+  * `[No]` --> **(Loops back)** to "Monitor current date/time".
   * `[Yes]` --> Proceed.
-* **Action:** Enable UC-1 and unfreeze the Registration UI.
-* **Action:** Enter a 'Wait/Sleep' state monitoring real-time.
-* **Decision Node:** Has the deadline expired?
-  * `[Yes]` --> **Action:** Freeze student enrollment capabilities permanently for the active term.
+* **Action:** Freeze student enrollment capabilities.
 * **End Node**

@@ -5,7 +5,7 @@ Welcome to the central repository for the **CENG3004 Software Engineering Projec
 ## 📖 Project Overview
 This project is an advanced, OBS-style platform unifying university academic operations. Instead of keeping graduation checks, grading, and advising in isolated silos, this seamlessly handles full-lifecycle student management. 
 
-**🔥 Added Value Feature:** An **AI-Assisted Smart Course Recommendation Module** that actively analyzes a student's academic history to recommend compulsory courses and specialization-focused electives (e.g., dynamically suggesting *Advanced NLP* if the student passed *AI*), while strictly avoiding timetable clashes.
+**🔥 Added Value Feature:** A **Smart Course Recommendation Module** that actively analyzes a student's academic history to recommend compulsory courses and specialization-focused electives (e.g., dynamically suggesting *Advanced NLP* if the student passed *AI*), while strictly avoiding timetable clashes.
 
 ---
 
@@ -37,10 +37,10 @@ To satisfy the system architecture and ensure everyone has an equal workload, th
 ---
 
 ## 🏗️ UML Diagram Checklists
-Our project utilizes **Visual Paradigm** to map out the system architecture. We have exactly **16 Core Classes** serving our workflows. Every team member is responsible for drawing their specific logic flows:
+Our project utilizes **Visual Paradigm** to map out the system architecture. We have exactly **17 Core Classes** serving our workflows. Every team member is responsible for drawing their specific logic flows:
 
 * **1 Master Use Case Diagram** connecting our 4 Actors (Student, Advisor, Instructor, Admin) to the 13 modules above.
-* **1 Master Class Diagram** featuring exactly 16 Classes (e.g., `Student`, `RecommendationEngine`, `RegistrationRequest`).
+* **1 Master Class Diagram** featuring exactly 17 Classes (e.g., `Student`, `RecommendationEngine`, `RegistrationRequest`).
 * **4 Sequence Diagrams** (1 logic sequence mapped per member for your main Use Case).
 * **4 Activity Diagrams** (1 algorithm flowchart mapped per member).
 * **1 Master Statechart Diagram** tracking the state lifecycle of the `RegistrationRequest` module.
