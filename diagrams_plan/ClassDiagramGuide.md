@@ -2,45 +2,54 @@
 
 ## Visual Paradigm Drawing Instructions
 1. **Selecting the Tool**: Open Visual Paradigm, navigate to the **Diagram Navigator**, right-click **Class Diagram**, and select **New Class Diagram**.
-2. **Drawing Classes**: Use the **Class** tool to drop exactly **17** class rectangles onto the canvas. Double-click to set names.
-3. **Adding Attributes & Methods**: Right-click a Class -> **Add** -> **Attribute** (or **Operation** for methods). 
+2. **Drawing Classes**: Use the **Class** tool to drop all **27** class rectangles onto the canvas. Double-click to set names.
+3. **Defining the Generic Platform**: Arrange the institutional foundation (`University`, `Faculty`) separate from generic `AcademicPolicy` rules.
 4. **Drawing Generalization (Inheritance)**: Select the **Generalization** arrow tool. Click from child classes to the `User` parent class.
 5. **Drawing Associations**: Use the **Association** line tool. 
 6. **Drawing Dependencies**: Use the **Dependency** dashed arrow.
 
-Draw exactly **1 large Class Diagram** mapping the **17 core classes** below. 
+Draw exactly **1 large Class Diagram** mapping the **27 core classes** below. 
 
-### Core User Inheritance
+### Core User Identity
 1. **User (Parent Class)**
-2. **Student (Inherits from User)**
-   - Association: `Student` (1) connected to (1) `Curriculum`.
-3. **Instructor (Inherits from User)**
-4. **Advisor (Inherits from User)**
-5. **SystemAdmin (Inherits from User)**
+2. **Student**
+3. **Instructor**
+4. **Advisor**
+5. **SystemAdmin**
 
-### Academic Modules
-6. **Course**
-7. **PrerequisiteRule**
-   - Association: `Course` (1) has (*) `PrerequisiteRule`.
-8. **CourseSection**
-   - Association: `Course` (1) has (*) `CourseSection`.
-   - Association: `CourseSection` (*) taught by (1) `Instructor`.
-   - Association: `CourseSection` (*) located in (1) `Classroom`.
-   - Association: `CourseSection` (*) belongs to (1) `Semester`.
-9. **Semester**
-10. **Curriculum**
-11. **Classroom**
+### Institutional Infrastructure (Generic Domain)
+6. **University**
+7. **Faculty**
+8. **Department**
+9. **Program**
+10. **AcademicPolicy**
+11. **GraduationPolicy**
 
-### Transactions & Business Logic
-12. **RegistrationRequest**
-    - Association: Connects `Student` to `CourseSection`.
-13. **GradeEntry**
-    - Association: Belongs to one `CourseSection` and one `Student`.
-14. **Transcript**
-    - Association: Connected to exactly one `Student` (1 to 1).
-15. **AttendanceRecord**
-    - Association: Tracks `Student` inside a single `CourseSection`.
-16. **GraduationAudit**
-    - Dependency: Draws implicitly from matching `Student` and `Curriculum`.
-17. **RecommendationEngine**
-    - Dependency: Draws from `Transcript` and `Curriculum`.
+### Academic Framework
+12. **Curriculum**
+13. **Course**
+14. **PrerequisiteRule**
+15. **CourseSection**
+16. **Semester**
+17. **Classroom**
+
+### Adaptive Decision Support Engine
+18. **AcademicPathwayEngine**
+19. **PlanningScenario**
+20. **PathwayPlan**
+21. **RiskAssessment**
+22. **RecommendationExplanation**
+
+### Primary Transactions
+23. **RegistrationRequest**
+24. **Transcript**
+25. **GradeEntry**
+26. **AttendanceRecord**
+27. **GraduationAudit**
+
+### Key Structural Associations to Draw
+* `University` contains `Faculty`, which contains `Department`, which offers modern `Program` bounds pointing to a specific `Curriculum`.
+* Each `Program` is mapped to generic configurable `AcademicPolicy` boundaries.
+* A `Student` initiates a hypothetical `PlanningScenario`.
+* The `AcademicPathwayEngine` directly integrates `PlanningScenario`, `Transcript`, and `AcademicPolicy`.
+* The engine actively produces `PathwayPlan` arrays mapping to one `RiskAssessment` block and a `RecommendationExplanation`.

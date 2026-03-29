@@ -7,19 +7,17 @@
 4. **Drawing Transitions**: Use the **Transition** arrow to connect the states. 
 5. **Adding Triggers**: Double-click the transition arrows to label them with the triggering event.
 
-Draw **1 State Machine Diagram** illustrating the lifecycle of a `RegistrationRequest`.
+Draw **1 State Machine Diagram** illustrating the lifecycle of a `PlanningScenario` inside the `AcademicPathwayEngine`.
 
-1. **Initial Node (Black Dot)** transitions to -> `[Draft]`
-2. **State:** `[Draft]`
-   * Trigger: `Student Submits` -> Destination: `[Pending_Advisor_Review]`
-3. **State:** `[Pending_Advisor_Review]`
-   * Trigger 1: `Advisor Rejects` -> Destination: `[Failed_and_Returned]`
-   * Trigger 2: `Advisor Approves` -> Destination: `[Officially_Enrolled]`
-4. **State:** `[Failed_and_Returned]`
-   * Trigger 1: `Student Edits & Resubmits` -> Destination: `[Draft]`
-   * Trigger 2: `Student Cancels Request` -> Destination: **[Final Node]**
-5. **State:** `[Officially_Enrolled]`
-   * Trigger 1: `Student Withdraws` -> Destination: `[Dropped_With_W_Record]`
-   * Trigger 2: `Semester concludes` -> Destination: `[Completed]`
-6. **State:** `[Dropped_With_W_Record]` transitions to **[Final Node]**.
-7. **State:** `[Completed]` transitions to **[Final Node]**.
+1. **Initial Node (Black Dot)** transitions to -> `[Drafting_Parameters]`
+2. **State:** `[Drafting_Parameters]`
+   * Trigger: `Student defines assumptions` -> Destination: `[Simulating_Pathways]`
+3. **State:** `[Simulating_Pathways]`
+   * Trigger 1: `Rule contradiction found` -> Destination: `[Evaluating_Risk_Mitigation]`
+   * Trigger 2: `Clean calculation` -> Destination: `[Ranked_and_Reviewed]`
+4. **State:** `[Evaluating_Risk_Mitigation]`
+   * Trigger: `Engine marks warnings` -> Destination: `[Ranked_and_Reviewed]`
+5. **State:** `[Ranked_and_Reviewed]`
+   * Trigger 1: `Student discards scenario` -> Destination: **[Final Node]**
+   * Trigger 2: `Student confirms selection` -> Destination: `[Saved_Active_Strategy]`
+6. **State:** `[Saved_Active_Strategy]` transitions implicitly to **[Final Node]** upon graduation or abandonment.

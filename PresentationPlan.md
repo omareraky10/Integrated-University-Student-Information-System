@@ -1,102 +1,110 @@
 # Midterm Presentation Plan
 
-**Project:** Integrated University Student Information System
+**Project:** Generic Academic Planning and Decision-Support Platform
 **Time Allocation:** 10 minutes presentation + 5 minutes Q&A
 
 ---
 
 ## Slide 1: Title Slide (1 minute)
-* **Project Name:** Integrated University Student Information System
+* **Project Name:** Generic Academic Planning and Decision-Support Platform
 * **Course:** CENG3004 Software Engineering
 * **Team Members:** Omar Mohamed Elerakky, Hamdo Alhasan, Hesham Alfadhl, Mohamed elhafedh el gharachi
 
 ## Slide 2: Project Motivation (Why? What is the problem?) (2.5 minutes)
-* **The Problem:** Most university systems only stop you from taking a class if you don't meet the prerequisite—they don't actually *help* you plan your degree. Students are left on their own, leading to confusing elective choices, missed graduation requirements, and frustrating timetable overlaps.
-* **Our Solution:** A unified, centralized platform that seamlessly handles registration, advisory, grading, and graduation auditing all in one place.
-* **The Core Innovation:** We augmented the standard flow with a **Smart Course Recommendation Module**. This module analyzes a student's academic history to recommend conflict-free, specialization-focused schedules (e.g., dynamically suggesting *Advanced NLP* if the student successfully completed *AI*). 
+* **The Problem:** Traditional OBS systems mainly record and enforce academic operations. They tell a student what they *can* register for today, but fail to help them plan their long-term degree timeline. 
+* **Our Solution:** A generic academic pathway planning and decision-support platform that goes beyond standard registration by supporting multi-semester planning, what-if simulations, and configurable policy-aware recommendations.
+* **The Core Innovation:** We augmented the standard flow with an **Adaptive Academic Pathway Planning Engine**. This engine simulates entire semesters, tests different career tracks, and ranks them by workload and graduation speed across different departmental rules.
 
 ## Slide 3: Example Functional Requirement (2 minutes)
-* **Requirement (FR-3): Smart Course Recommendation Engine**
-* **Description:** The system shall analyze a student’s academic history and automatically recommend a comprehensive course schedule for the upcoming semester.
+* **Requirement (FR-3): Adaptive Academic Pathway Planning**
+* **Description:** The system shall analyze a student’s transcript, institutional policies, and scheduling constraints to generate ranked, multi-semester pathway plans.
 * **Key Mechanisms:** 
   1. Identifies and prioritizes unfulfilled compulsory courses.
-  2. Evaluates past completed electives to uncover a specialization direction, recommending relevant follow-up courses to build a consistent academic pathway.
-  3. Executes real-time prerequisite validation and filters out any options that clash in the weekly timetable.
+  2. Runs "What-If" Planning Scenarios (e.g., "What happens if I delay this prerequisite?").
+  3. Provides Explainable Tradeoffs, ranking schedule options by "Fastest Graduation", "Balanced Workload", or "Recovery".
 
 ## Slide 4: Example Nonfunctional Requirement (1 minute)
 * **Requirement (NR-2): High Availability During Registration Week**
 * **Description:** The system must guarantee 99.9% uptime during registration week and remain stable under peak usage.
-* **Why it matters:** Registration is the most critical and busiest period in the system.
+* **Why it matters:** Registration and real-time planning simulations are the most critical and computationally demanding periods in the system.
 
-## Slide 5: One Use Case Diagram (2 minutes)
-* **Diagram:** "Generate Smart Course Recommendations" (UC-2)
+## Slide 5: Comprehensive Use Case Diagram (2 minutes)
+* **Diagram:** The Planning & Smart Scheduling Flow
 
 ```mermaid
 flowchart LR
     Student(("👤 Student"))
+    Advisor(("👨‍🏫 Advisor"))
 
-    subgraph System [Integrated Student Information System]
+    subgraph System [Generic Academic Planning Platform]
         direction TB
-        UC2(["Generate Smart Course Recommendations"])
+        UC1(["Register for Courses (UC-1)"])
+        UC2(["Generate Academic Pathway Plan (UC-2)"])
+        UC3(["Simulate What-If Academic Scenario (UC-3)"])
+        UC5(["Approve Course Selection (UC-5)"])
+        
         UCP(["Validate Prerequisites"])
         UCC(["Check Timetable Conflicts"])
+        UCR(["Assess Academic Risk"])
     end
 
+    Student === UC1
     Student === UC2
+    Student === UC3
+    Advisor === UC5
+
+    UC1 -. "<<include>>" .-> UCP
     UC2 -. "<<include>>" .-> UCP
-    UC2 -. "<<include>>" .-> UCC
+    UC2 -. "<<include>>" .-> UCR
+    UC3 -. "<<include>>" .-> UCR
 
     style System fill:#f0f8ff,stroke:#4a90e2,stroke-width:2px,stroke-dasharray: 5 5
+    style UC1 fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
     style UC2 fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
-    style UCP fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
-    style UCC fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+    style UC3 fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+    style UC5 fill:#fff9c4,stroke:#fbc02d,stroke-width:2px
 ```
 
 * **Description of the Drawing:** 
-  * Add a primary actor on the left: **Student**.
-  * Add the central use case oval: **Generate Smart Course Recommendations**. 
-  * Draw a solid association line connecting the Student to this central use case.
-  * Add additional use case ovals that are `<<include>>`d: **Validate Prerequisites** and **Check Timetable Conflicts**. Draw dashed arrows pointing to them from the central use case with the `<<include>>` stereotype.
+  * **Why present this one?:** It maps two primary actors and introduces the advanced `Assess Academic Risk` include logic natively.
+  * **What to highlight:** Point out that standard pathway generation (UC-2) and advanced what-if simulation (UC-3) both reuse shared internal risk validations. This proves the team understands modular UML component design!
 
 ## Slide 6: One Class Diagram (1.5 minutes)
-* **Diagram:** Academic Registration and Recommendation Framework
+* **Diagram:** Configuration and Planning Framework
 
 ```mermaid
 classDiagram
     direction TB
+    class University {
+        +String name
+    }
+    class AcademicPolicy {
+        +int maxCredits
+        +float minGPA
+    }
     class Student {
         +String studentID
         +float GPA
-        +int semester
     }
-    class Transcript {
-        +int totalCreditsEquated
-        +float cgpa
+    class PlanningScenario {
+        +String scenarioName
+        +runSimulation()
     }
-    class RecommendationEngine {
-        +analyzeHistory()
-        +findElectiveTrends()
+    class AcademicPathwayEngine {
+        +buildCandidatePlans()
+        +estimateGraduationProgress()
     }
-    class CourseSection {
-        +int capacity
-        +String schedule
-        +String instructorID
-    }
-    class RegistrationRequest {
-        +String status
-        +Date dateSubmitted
+    class PathwayPlan {
+        +int projectedDelay
+        +String riskFactor
     }
 
-    Student "1" -- "1" Transcript : possesses
-    RecommendationEngine ..> Transcript : <<depends>> pulls history
-    Student "1" --> "*" RegistrationRequest : initiates
-    RegistrationRequest --> "*" CourseSection : includes
+    University "1" *-- "*" AcademicPolicy : defines
+    Student "1" --> "*" PlanningScenario : creates
+    PlanningScenario ..> AcademicPathwayEngine : invokes
+    AcademicPathwayEngine --> "*" PathwayPlan : generates
 ```
 
 * **Description of the Drawing:** 
-  * Draw a central **Student** class (attributes: `studentID`, `GPA`, `semester`).
-  * Draw a **Transcript** class and connect it to the Student (1 to 1). This holds historical grades.
-  * Draw a **RecommendationEngine** class (methods: `analyzeHistory()`, `findElectiveTrends()`). Show a dependency arrow pointing from it to the Transcript.
-  * Draw a **CourseSection** class (attributes: `capacity`, `schedule`, `instructorID`).
-  * Draw a **RegistrationRequest** class (attributes: `status`, `dateSubmitted`).
-  * Show the relations: A Student explicitly initiates a RegistrationRequest (1 to Many), which includes one or more CourseSections (1 to Many).
+  * **Why present this?:** It visually proves the system is *generic and configurable* across institutions. 
+  * **What to highlight:** Show how a `Student` creates a `PlanningScenario`, which invokes the `AcademicPathwayEngine` to generate exactly one or more `PathwayPlan`s. All of this must strictly adhere to the `AcademicPolicy` generated by the master `University` object. This proves architectural scale well beyond a standard OBS schema.
